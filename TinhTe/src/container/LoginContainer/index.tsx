@@ -62,7 +62,54 @@ class LoginForm extends React.Component<Props, State> {
 		return <Login loginForm={form} onLogin={() => this.login()} />;
 	}
 }
+
+class SignUpForm extends React.Component<Props, State> {
+	textInput: any;
+
+	renderInput({ input, meta: { touched, error } }) {
+		return (
+			<Item error={error && touched}>
+				<Icon active name={input.name === "email" ? "person" : "unlock"} />
+				{/* <Text>Username or email</Text> */}
+				<Input
+					ref={c => (this.textInput = c)}
+					placeholder={input.name === "email" ? "Email" : "Password"}
+					secureTextEntry={input.name === "password" ? true : false}
+					{...input}
+				/>
+			</Item>
+		);
+	}
+
+	login() {
+		if (this.props.valid) {
+			this.props.navigation.navigate("Drawer");
+		} else {
+			Toast.show({
+				text: "Enter Valid Username & password!",
+				duration: 2000,
+				position: "top",
+				textStyle: { textAlign: "center" },
+			});
+		}
+	}
+
+	render() {
+		const signUpform = (
+			<Form>
+				<Field name="email" component={this.renderInput} validate={[email, required]} />
+				<Field
+					name="password"
+					component={this.renderInput}
+					validate={[alphaNumeric, minLength8, maxLength15, required]}
+				/>
+			</Form>
+		);
+		return <SignUp signUpForm={signUpform} onLogin={() => this.login()} />;
+	}
+}
 const LoginContainer = reduxForm({
 	form: "login",
+	signUpform:"signup"
 })(LoginForm);
 export default LoginContainer;

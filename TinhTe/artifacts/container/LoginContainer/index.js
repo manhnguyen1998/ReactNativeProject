@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Item, Input, Form, Toast } from "native-base";
+import { Item, Input, Icon, Form, Toast } from "native-base";
 import { Field, reduxForm } from "redux-form";
 import Login from "../../stories/screens/Login";
 const required = value => (value ? undefined : "Required");
@@ -34,8 +34,35 @@ class LoginForm extends React.Component {
         return React.createElement(Login, { loginForm: form, onLogin: () => this.login() });
     }
 }
+class SignUpForm extends React.Component {
+    renderInput({ input, meta: { touched, error } }) {
+        return (React.createElement(Item, { error: error && touched },
+            React.createElement(Icon, { active: true, name: input.name === "email" ? "person" : "unlock" }),
+            React.createElement(Input, Object.assign({ ref: c => (this.textInput = c), placeholder: input.name === "email" ? "Email" : "Password", secureTextEntry: input.name === "password" ? true : false }, input))));
+    }
+    login() {
+        if (this.props.valid) {
+            this.props.navigation.navigate("Drawer");
+        }
+        else {
+            Toast.show({
+                text: "Enter Valid Username & password!",
+                duration: 2000,
+                position: "top",
+                textStyle: { textAlign: "center" },
+            });
+        }
+    }
+    render() {
+        const signUpform = (React.createElement(Form, null,
+            React.createElement(Field, { name: "email", component: this.renderInput, validate: [email, required] }),
+            React.createElement(Field, { name: "password", component: this.renderInput, validate: [alphaNumeric, minLength8, maxLength15, required] })));
+        return React.createElement(SignUp, { signUpForm: signUpform, onLogin: () => this.login() });
+    }
+}
 const LoginContainer = reduxForm({
     form: "login",
+    signUpform: "signup"
 })(LoginForm);
 export default LoginContainer;
 //# sourceMappingURL=index.js.map
