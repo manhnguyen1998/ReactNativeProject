@@ -1,7 +1,7 @@
 # fakeTinhte
  Clone lai app Tinhte
 ## Demo: 
- ![gif](https://giphy.com/gifs/FsWCQp20xgJ2AMN2py?fbclid=IwAR1MknguJygbHruNkd8aX97PHuq6QCEhASkYjHrPs9--j6rAu95-aRW75H0)
+ ![gif](https://giphy.com/gifs/FsWCQp20xgJ2AMN2py?fbclid=IwAR1MknguJygbHruNkd8aX97PHuq6QCEhASkYjHrPs9--j6rAu95-aRW75H0/giphy.gif)
 
 
 
